@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gamaiaapp/constants.dart';
 import 'package:gamaiaapp/Pages/profile_page.dart';
+
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
 
@@ -17,7 +18,7 @@ class _MainScreenState extends State<MainScreen> {
     const Center(child: Text('جمعياتي')),
     const Center(child: Text('إشتراكي')),
     const Center(child: Text('كارتي')),
-    const Center(child: Text('الإشعارات')),
+    const Center(child: Text('المدفوعات')),
   ];
 
   void _onItemTapped(int index) {
@@ -26,45 +27,49 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: kBackgroundColor,
-      appBar: AppBar(
-        backgroundColor: kPrimaryColor,
-        elevation: 0,
-        title: const Text('الرئيسية', style: TextStyle(color: Colors.white)),
-        actions: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: Icon(Icons.notifications, color: Colors.white, size: 28),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
-                );
-              },
-              child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        backgroundColor: kBackgroundColor,
+        appBar: AppBar(
+          backgroundColor: kPrimaryColor,
+          elevation: 0,
+          title: const Text('الرئيسية', style: TextStyle(color: Colors.white)),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const ProfilePage()),
+                  );
+                },
+                child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
+              ),
             ),
-          ),
-        ],
-      ),
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: kPrimaryColor,
-        unselectedItemColor: Colors.grey,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الرئيسية'),
-          BottomNavigationBarItem(icon: Icon(Icons.groups), label: 'جمعياتي'),
-          BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: 'إشتراكي'),
-          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'كارتي'),
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'الإشعارات'),
-        ],
+            const Padding(
+              padding: EdgeInsets.only(left: 12, right: 4),
+              child: Icon(Icons.notifications, color: Colors.white, size: 28),
+            ),
+          ],
+        ),
+        body: _screens[_selectedIndex],
+        bottomNavigationBar: BottomNavigationBar(
+          backgroundColor: const Color(0xFFB8E8E2),
+          currentIndex: _selectedIndex,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.black54,
+          onTap: _onItemTapped,
+          type: BottomNavigationBarType.fixed,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الرئيسية'),
+            BottomNavigationBarItem(icon: Icon(Icons.groups), label: 'جمعياتي'),
+            BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: 'إشتراكي'),
+            BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'كارتي'),
+            BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'المدفوعات'),
+          ],
+        ),
       ),
     );
   }
@@ -79,7 +84,6 @@ class HomeTab extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          // بطاقة الصيف
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -91,35 +95,32 @@ class HomeTab extends StatelessWidget {
               ],
             ),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Icon(Icons.wb_sunny, color: Colors.orange),
-                const SizedBox(width: 12),
+                // النصوص
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      const Text(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      Text(
                         'خليك جاهز للصيف',
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                        textAlign: TextAlign.right,
                       ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        'إشترك في جمعيه',
+                      SizedBox(height: 4),
+                      Text(
+                        'إشتراك في جمعيه',
                         style: TextStyle(color: Colors.blue, fontSize: 14),
-                        textAlign: TextAlign.right,
                       ),
-                      const SizedBox(height: 2),
-                      const Text(
+                      SizedBox(height: 2),
+                      Text(
                         '%20 خصم علي الرسوم',
-                        style: TextStyle(fontSize: 14),
-                        textAlign: TextAlign.right,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                     ],
                   ),
                 ),
                 const SizedBox(width: 12),
-                const Icon(Icons.beach_access, size: 40, color: kPrimaryColor),
+                const Icon(Icons.wb_sunny, color: Colors.orange),
               ],
             ),
           ),
@@ -134,35 +135,25 @@ class HomeTab extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-               
-                Column(
-                  children: const [
-                    Icon(FontAwesomeIcons.peopleGroup, size: 32),
-                    SizedBox(height: 8),
-                    Icon(FontAwesomeIcons.userFriends, size: 32),
-                  ],
-                ),
-                const SizedBox(width: 12),
+                // النصوص
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'خصم 300 رس لك ولأصحابك.',
+                        'خصم 300 رس ليك ولأصحابك.',
                         style: TextStyle(fontWeight: FontWeight.bold),
-                        textAlign: TextAlign.right,
                       ),
                       const SizedBox(height: 4),
                       const Text(
-                        'إبعت دعوات أكتر، إستفيد بخصومات أكثر',
+                        'إبعت دعوات أكتر، إستفيد بخصومات أكبر',
                         style: TextStyle(fontSize: 13),
-                        textAlign: TextAlign.right,
                       ),
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 12),
                       Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
@@ -173,9 +164,17 @@ class HomeTab extends StatelessWidget {
                           ),
                           child: const Text('إبعت دعوة'),
                         ),
-                      )
+                      ),
                     ],
                   ),
+                ),
+                const SizedBox(width: 12),
+                Column(
+                  children: const [
+                    Icon(FontAwesomeIcons.handsClapping, size: 32),
+                    SizedBox(height: 8),
+                    Icon(FontAwesomeIcons.peopleGroup, size: 32),
+                  ],
                 ),
               ],
             ),
