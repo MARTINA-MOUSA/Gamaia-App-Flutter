@@ -35,7 +35,10 @@ class _LoginPageState extends State<LoginPage> {
       if (!mounted) return;
 
       if (success) {
-        Navigator.pushReplacementNamed(context, '/home'); // ✅ تم التعديل هنا
+        Navigator.pushReplacementNamed(context, '/main');
+      } else {
+        showSnackBar(
+            context, 'فشل تسجيل الدخول. تحقق من الرقم القومي وكلمة المرور.');
       }
     } catch (e) {
       if (!mounted) return;

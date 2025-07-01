@@ -23,7 +23,8 @@ class GamaiaApp extends StatelessWidget {
       routes: {
         '/login': (context) => const LoginPage(),
         '/register': (context) => const RegisterPage(),
-        '/home': (context) => const HomePage(), 
+          '/main': (_) => const MainScreen(),
+
       },
     );
   }
