@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const String kApiBaseUrl = 'http://10.0.2.2:3000';
+const String kApiBaseUrl = 'https://api.technologytanda.com';
 
 const Color kPrimaryColor = Color(0xFF02AF88);
 const Color kPrimaryColor2 = Color.fromARGB(255, 2, 94, 175);

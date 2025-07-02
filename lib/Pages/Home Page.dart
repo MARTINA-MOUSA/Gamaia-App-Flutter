@@ -1,5 +1,8 @@
+
+import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:gamaiaapp/constants.dart';
 import 'package:gamaiaapp/Pages/profile_page.dart';
 
@@ -13,13 +16,13 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  final List<Widget> _screens = [
-    const HomeTab(),
-    const Center(child: Text('جمعياتي')),
-    const Center(child: Text('إشتراكي')),
-    const Center(child: Text('كارتي')),
-    const Center(child: Text('المدفوعات')),
-  ];
+  List<Widget> get _screens => [
+     HomeTab(),
+        Center(child: Text(tr('my_groups'), style: const TextStyle(fontSize: 20))),
+        Center(child: Text(tr('subscription'), style: const TextStyle(fontSize: 20))),
+        Center(child: Text(tr('my_card'), style: const TextStyle(fontSize: 20))),
+        Center(child: Text(tr('payments'), style: const TextStyle(fontSize: 20))),
+      ];
 
   void _onItemTapped(int index) {
     setState(() => _selectedIndex = index);
@@ -28,13 +31,14 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: context.locale.languageCode == 'ar'
+          ? ui.TextDirection.rtl
+          : ui.TextDirection.ltr,
       child: Scaffold(
         backgroundColor: kBackgroundColor,
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           elevation: 0,
-          // بدلاً من العنوان نستخدم leading
           leading: Padding(
             padding: const EdgeInsets.only(right: 12),
             child: GestureDetector(
@@ -47,8 +51,21 @@ class _MainScreenState extends State<MainScreen> {
               child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
             ),
           ),
-          actions: const [
+          actions: [
             Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: PopupMenuButton(
+                icon: const Icon(Icons.language, color: Colors.white),
+                onSelected: (value) {
+                  context.setLocale(Locale(value));
+                },
+                itemBuilder: (context) => const [
+                  PopupMenuItem(value: 'ar', child: Text('العربية')),
+                  PopupMenuItem(value: 'en', child: Text('English')),
+                ],
+              ),
+            ),
+            const Padding(
               padding: EdgeInsets.only(left: 12, right: 4),
               child: Icon(Icons.notifications, color: Colors.white, size: 28),
             ),
@@ -62,12 +79,12 @@ class _MainScreenState extends State<MainScreen> {
           unselectedItemColor: Colors.black54,
           onTap: _onItemTapped,
           type: BottomNavigationBarType.fixed,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'الرئيسية'),
-            BottomNavigationBarItem(icon: Icon(Icons.groups), label: 'جمعياتي'),
-            BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: 'إشتراكي'),
-            BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: 'كارتي'),
-            BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: 'المدفوعات'),
+          items: [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: tr('home')),
+            BottomNavigationBarItem(icon: Icon(Icons.groups), label: tr('my_groups')),
+            BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: tr('subscription')),
+            BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: tr('my_card')),
+            BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: tr('payments')),
           ],
         ),
       ),
@@ -97,24 +114,23 @@ class HomeTab extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // النصوص
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text(
-                        'خليك جاهز للصيف',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        tr('summer_ready'),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       Text(
-                        'إشتراك في جمعيه',
-                        style: TextStyle(color: Colors.blue, fontSize: 14),
+                        tr('join_now'),
+                        style: const TextStyle(color: Colors.blue, fontSize: 14),
                       ),
-                      SizedBox(height: 2),
+                      const SizedBox(height: 2),
                       Text(
-                        '%20 خصم علي الرسوم',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        tr('discount'),
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                     ],
                   ),
@@ -125,8 +141,6 @@ class HomeTab extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-
-          // بطاقة الدعوة
           Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
@@ -137,19 +151,18 @@ class HomeTab extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // النصوص
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
-                        'خصم 300 رس ليك ولأصحابك.',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                      Text(
+                        tr('invite_discount'),
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       const SizedBox(height: 4),
-                      const Text(
-                        'إبعت دعوات أكتر، إستفيد بخصومات أكبر',
-                        style: TextStyle(fontSize: 13),
+                      Text(
+                        tr('invite_text'),
+                        style: const TextStyle(fontSize: 13),
                       ),
                       const SizedBox(height: 12),
                       Align(
@@ -162,7 +175,7 @@ class HomeTab extends StatelessWidget {
                             side: const BorderSide(color: kPrimaryColor),
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                           ),
-                          child: const Text('إبعت دعوة'),
+                          child: Text(tr('send_invite')),
                         ),
                       ),
                     ],
