@@ -34,21 +34,21 @@ class _MainScreenState extends State<MainScreen> {
         appBar: AppBar(
           backgroundColor: kPrimaryColor,
           elevation: 0,
-          title: const Text('الرئيسية', style: TextStyle(color: Colors.white)),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const ProfilePage()),
-                  );
-                },
-                child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
-              ),
+          // بدلاً من العنوان نستخدم leading
+          leading: Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const ProfilePage()),
+                );
+              },
+              child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
             ),
-            const Padding(
+          ),
+          actions: const [
+            Padding(
               padding: EdgeInsets.only(left: 12, right: 4),
               child: Icon(Icons.notifications, color: Colors.white, size: 28),
             ),
