@@ -109,7 +109,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       elevation: 0,
                     ),
                     icon: const Icon(Icons.edit),
-                    label: Text('edit_profile'.tr()),
+                    label: Text('edit profile'.tr()),
                     onPressed: () {
                       // Edit profile
                     },
