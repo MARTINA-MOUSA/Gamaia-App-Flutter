@@ -9,5 +9,27 @@
   "discount": "20% off fees",
   "invite_discount": "300 SAR discount for you and your friends.",
   "invite_text": "Send more invites, get more discounts",
-  "send_invite": "Send Invite"
+  "send_invite": "Send Invite",
+  "profile": "Profile",
+  "account_info": "Account Information",
+  "full_name": "Full Name",
+  "email": "Email",
+  "phone": "Phone Number",
+  "reference_number": "Reference Number (optional)",
+  "save": "Save Changes",
+  "my_associations": "My Associations",
+  "view_all": "View All Associations",
+  "settings": "Settings & Notifications",
+  "change_password": "Change Password",
+  "language": "Language",
+  "support": "Support & Help",
+  "contact_us": "Contact Us",
+  "usage_report": "Send Usage Report",
+  "ref_number_display": "Show Reference Number",
+  "logout": "Log Out",
+  "recent_activities": "Recent Activities",
+  "recharge_wallet": "Recharge Wallet",
+  "recharged_wallet_info": "300 SAR recharged to wallet",
+  "minutes_ago": "minutes ago"
+
 }

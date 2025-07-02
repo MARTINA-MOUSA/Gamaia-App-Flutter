@@ -31,7 +31,6 @@ class AuthService {
     }
   }
 
-  // ✅ التعديل هنا: نستقبل البيانات من RegisterPage
   Future<bool> register({
     required String fullName,
     required String nationalId,
@@ -61,6 +60,45 @@ class AuthService {
       }
     } catch (e) {
       throw Exception('فشل تسجيل المستخدم');
+    }
+  }
+
+  Future<Map<String, dynamic>> getProfile() async {
+    try {
+      final response = await _api.get('/api/userData/profile');
+
+      if (response.statusCode == 200) {
+        final body = jsonDecode(response.body);
+
+        if (body is List && body.isNotEmpty) {
+          return body[0];
+        }
+
+        if (body is Map<String, dynamic>) {
+          return body;
+        }
+
+        throw Exception('صيغة بيانات غير متوقعة');
+      } else {
+        throw Exception('فشل تحميل بيانات الملف الشخصي');
+      }
+    } catch (e) {
+      throw Exception('حدث خطأ أثناء تحميل الملف الشخصي');
+    }
+  }
+
+  Future<String?> getProfileImageUrl() async {
+    try {
+      final profileData = await getProfile();
+      final imageName = profileData['profileImage'];
+
+      if (imageName != null && imageName.isNotEmpty) {
+        return "https://api.technologytanda.com/api/userData/uploads/$imageName";
+      } else {
+        return null;
+      }
+    } catch (e) {
+      throw Exception("فشل تحميل صورة الملف الشخصي");
     }
   }
 }

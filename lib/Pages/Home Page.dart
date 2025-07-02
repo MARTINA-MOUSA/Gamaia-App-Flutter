@@ -45,7 +45,7 @@ class _MainScreenState extends State<MainScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => const ProfilePage()),
+                  MaterialPageRoute(builder: (_) =>  ProfilePage()),
                 );
               },
               child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
