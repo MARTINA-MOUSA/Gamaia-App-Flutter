@@ -9,16 +9,17 @@ import 'package:gamaiaapp/Pages/register/step_credentials.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
+
   @override
   _RegisterPageState createState() => _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
   int _step = 0;
-  final _fullNameController   = TextEditingController();
-  final _phoneController      = TextEditingController();
+  final _fullNameController = TextEditingController();
+  final _phoneController = TextEditingController();
   final _nationalIdController = TextEditingController();
-  final _passwordController   = TextEditingController();
+  final _passwordController = TextEditingController();
   bool isLoading = false;
 
   final authService = AuthService();
@@ -32,9 +33,12 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 
   Future<void> _submit() async {
-    if ([_fullNameController.text, _phoneController.text,
-         _nationalIdController.text, _passwordController.text]
-        .any((s) => s.trim().isEmpty)) {
+    if ([
+      _fullNameController.text,
+      _phoneController.text,
+      _nationalIdController.text,
+      _passwordController.text,
+    ].any((s) => s.trim().isEmpty)) {
       if (!mounted) return;
       showSnackBar(context, 'جميع الحقول مطلوبة');
       return;
@@ -43,16 +47,17 @@ class _RegisterPageState extends State<RegisterPage> {
     setState(() => isLoading = true);
 
     try {
-      await authService.register({
-        'fullName'   : _fullNameController.text.trim(),
-        'phone'      : _phoneController.text.trim(),
-        'nationalId' : _nationalIdController.text.trim(),
-        'password'   : _passwordController.text.trim(),
-      });
+      await authService.register(
+        fullName: _fullNameController.text.trim(),
+        phone: _phoneController.text.trim(),
+        nationalId: _nationalIdController.text.trim(),
+        address: 'Test Street, City', 
+        role: 'user',
+        password: _passwordController.text.trim(),
+      );
 
       if (!mounted) return;
       Navigator.pushReplacementNamed(context, '/login');
-
     } catch (e) {
       if (!mounted) return;
       showSnackBar(context, e.toString().replaceAll('Exception: ', ''));
@@ -64,8 +69,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final bottomInset  = MediaQuery.of(context).viewInsets.bottom;
-    final viewHeight   = MediaQuery.of(context).size.height - bottomInset;
+    final bottomInset = MediaQuery.of(context).viewInsets.bottom;
+    final viewHeight = MediaQuery.of(context).size.height - bottomInset;
 
     final stepsWidgets = [
       FullNameStep(controller: _fullNameController),
@@ -95,7 +100,7 @@ class _RegisterPageState extends State<RegisterPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _Header(title: 'تسجيل حساب جديد'),
+                  const _Header(title: 'تسجيل حساب جديد'),
                   const SizedBox(height: 12),
                   _ProgressBar(step: _step, length: stepsWidgets.length),
                   Padding(
@@ -112,7 +117,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         _Footer(
                           onSwitch: () {
                             if (mounted) {
-                              Navigator.pushReplacementNamed(context, '/login');
+                              Navigator.pushReplacementNamed(
+                                  context, '/login');
                             }
                           },
                         ),
@@ -132,24 +138,25 @@ class _RegisterPageState extends State<RegisterPage> {
 class _Header extends StatelessWidget {
   final String title;
   const _Header({required this.title});
+
   @override
   Widget build(BuildContext context) => Container(
-    width: double.infinity,
-    padding: const EdgeInsets.symmetric(vertical: 20),
-    decoration: BoxDecoration(
-      color: kSecondaryColor,
-      borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-    ),
-    child: Text(
-      title,
-      textAlign: TextAlign.center,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 20,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-  );
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: BoxDecoration(
+          color: kSecondaryColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        ),
+        child: Text(
+          title,
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      );
 }
 
 class _ProgressBar extends StatelessWidget {
@@ -158,40 +165,44 @@ class _ProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Directionality(
-    textDirection: TextDirection.rtl, 
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: List.generate(length, (i) => Container(
-        margin: const EdgeInsets.symmetric(horizontal: 4),
-        width: 40,
-        height: 6,
-        decoration: BoxDecoration(
-          color: i == step ? kSecondaryColor : Colors.grey[300],
-          borderRadius: BorderRadius.circular(3),
+        textDirection: TextDirection.rtl,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: List.generate(
+            length,
+            (i) => Container(
+              margin: const EdgeInsets.symmetric(horizontal: 4),
+              width: 40,
+              height: 6,
+              decoration: BoxDecoration(
+                color: i == step ? kSecondaryColor : Colors.grey[300],
+                borderRadius: BorderRadius.circular(3),
+              ),
+            ),
+          ),
         ),
-      )),
-    ),
-  );
+      );
 }
 
 class _Footer extends StatelessWidget {
   final VoidCallback onSwitch;
   const _Footer({required this.onSwitch});
+
   @override
   Widget build(BuildContext context) => Column(
-    children: [
-      const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: Text(
-          'بالنقر على "تسجيل"، أنت توافق على شروط الخدمة و سياسة الخصوصية',
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12),
-        ),
-      ),
-      TextButton(
-        onPressed: onSwitch,
-        child: const Text('لديك حساب فعلاً؟ اذهب لتسجيل الدخول'),
-      ),
-    ],
-  );
+        children: [
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'بالنقر على "تسجيل"، أنت توافق على شروط الخدمة و سياسة الخصوصية',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 12),
+            ),
+          ),
+          TextButton(
+            onPressed: onSwitch,
+            child: const Text('لديك حساب فعلاً؟ اذهب لتسجيل الدخول'),
+          ),
+        ],
+      );
 }
