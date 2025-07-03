@@ -14,26 +14,31 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-void _onItemTapped(int index) {
-  if (index == 3) {
-    Navigator.pushNamed(context, '/wallet');
-  } else if (index == 4) {
-    Navigator.pushNamed(context, '/payments'); 
-  } else {
-    setState(() => _selectedIndex = index);
+  void _onItemTapped(int index) {
+    if (index == 3) {
+      Navigator.pushNamed(context, '/wallet');
+    } else if (index == 4) {
+      Navigator.pushNamed(context, '/payments');
+    } else if (index == 2) {
+      Navigator.pushNamed(context, '/join');
+    } else {
+      setState(() => _selectedIndex = index);
+    }
   }
-}
 
   Widget _buildCurrentScreen() {
     switch (_selectedIndex) {
       case 0:
         return const HomeTab();
       case 1:
-        return Center(child: Text(tr('my_groups'), style: const TextStyle(fontSize: 20)));
+        return Center(
+            child: Text(tr('my_groups'), style: const TextStyle(fontSize: 20)));
       case 2:
-        return Center(child: Text(tr('subscription'), style: const TextStyle(fontSize: 20)));
+        return Center(
+            child: Text(tr('Join now'), style: const TextStyle(fontSize: 20)));
       case 4:
-        return Center(child: Text(tr('payments'), style: const TextStyle(fontSize: 20)));
+        return Center(
+            child: Text(tr('payments'), style: const TextStyle(fontSize: 20)));
       default:
         return const SizedBox();
     }
@@ -55,7 +60,8 @@ void _onItemTapped(int index) {
                 MaterialPageRoute(builder: (_) => ProfilePage()),
               );
             },
-            child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
+            child:
+                const Icon(Icons.account_circle, color: Colors.white, size: 28),
           ),
         ),
         actions: [
@@ -94,10 +100,14 @@ void _onItemTapped(int index) {
         type: BottomNavigationBarType.fixed,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: tr('home')),
-          BottomNavigationBarItem(icon: Icon(Icons.groups), label: tr('my_groups')),
-          BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: tr('subscription')),
-          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: tr('my_card')),
-          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: tr('payments')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.groups), label: tr('my groups')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.join_full), label: tr('Join now')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.credit_card), label: tr('my card')),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.receipt_long), label: tr('payments')),
         ],
       ),
     );
@@ -120,7 +130,8 @@ class HomeTab extends StatelessWidget {
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
               boxShadow: const [
-                BoxShadow(color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
+                BoxShadow(
+                    color: Colors.black12, blurRadius: 4, offset: Offset(0, 2)),
               ],
             ),
             child: Row(
@@ -130,11 +141,17 @@ class HomeTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(tr('summer_ready'), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      Text(tr('summer_ready'),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16)),
                       const SizedBox(height: 4),
-                      Text(tr('join_now'), style: const TextStyle(color: Colors.blue, fontSize: 14)),
+                      Text(tr('join_now'),
+                          style: const TextStyle(
+                              color: Colors.blue, fontSize: 14)),
                       const SizedBox(height: 2),
-                      Text(tr('discount'), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                      Text(tr('discount'),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14)),
                     ],
                   ),
                 ),
@@ -158,9 +175,11 @@ class HomeTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(tr('invite_discount'), style: const TextStyle(fontWeight: FontWeight.bold)),
+                      Text(tr('invite_discount'),
+                          style: const TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 4),
-                      Text(tr('invite_text'), style: const TextStyle(fontSize: 13)),
+                      Text(tr('invite_text'),
+                          style: const TextStyle(fontSize: 13)),
                       const SizedBox(height: 12),
                       Align(
                         alignment: Alignment.centerRight,
@@ -170,7 +189,8 @@ class HomeTab extends StatelessWidget {
                             foregroundColor: kPrimaryColor,
                             backgroundColor: Colors.white,
                             side: const BorderSide(color: kPrimaryColor),
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
                           ),
                           child: Text(tr('send_invite')),
                         ),
