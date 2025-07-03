@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:gamaiaapp/Pages/Associations_Page.dart';
+import 'package:gamaiaapp/Pages/payments_page.dart';
 import 'package:gamaiaapp/Pages/profile_page.dart';
 import 'package:gamaiaapp/Pages/wallet_page.dart';
 import 'package:gamaiaapp/constants.dart';
@@ -51,6 +52,7 @@ class GamaiaApp extends StatelessWidget {
         '/profile': (context) => ProfilePage(),
         '/associations': (context) => AssociationsPage(),
         '/wallet': (context) => const WalletPage(),
+        '/payments': (context) => const PaymentsPage(),        
       },
     );
   }

@@ -14,13 +14,15 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
-    if (index == 3) {
-      Navigator.pushNamed(context, '/wallet');
-    } else {
-      setState(() => _selectedIndex = index);
-    }
+void _onItemTapped(int index) {
+  if (index == 3) {
+    Navigator.pushNamed(context, '/wallet');
+  } else if (index == 4) {
+    Navigator.pushNamed(context, '/payments'); 
+  } else {
+    setState(() => _selectedIndex = index);
   }
+}
 
   Widget _buildCurrentScreen() {
     switch (_selectedIndex) {

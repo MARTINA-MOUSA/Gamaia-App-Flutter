@@ -43,6 +43,13 @@
   "error_loading_balance": "فشل في تحميل رصيد المحفظة",
   "top_up_success": "تم شحن المحفظة بنجاح",
   "accept": "تأكيد",
-  "cancel": "إلغاء"
-
+  "cancel": "إلغاء",
+  "join_payment_message": "يلا ادخل جمعيه معانا",
+"join_payment_subtext": "كل تفاصيل مدفوعات الجمعية من القبض والدفع هتظهر هنا أول ما تدخل جمعية",
+"join_new_jamaia": "ادخل جمعيه جديده",
+"payment_settings": "إعدادات المدفوعات",
+"account_ready": "جاهزية حسابك للقبض",
+"payment_history": "تاريخ الدفع",
+"payment_policy": "سياسة المدفوعات",
+"support": "المساعدة"
 }

@@ -69,6 +69,7 @@ flutter:
     - assets/langs/default_profile.jpg 
     - assets/langs/mastercard_logo.png
     - assets/langs/suaid_logo.png
+    - assets/langs/payment.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

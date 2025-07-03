@@ -41,7 +41,15 @@
   "enter_valid_amount": "Please enter a valid amount",
   "error_loading_balance": "Failed to load wallet balance",
   "accept": "Accept",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "join_payment_message": "Join a Jamaia with us",
+"join_payment_subtext": "All your Jamaia payment details will appear here once you join",
+"join_new_jamaia": "Join New Jamaia",
+"payment_settings": "Payment Settings",
+"account_ready": "Account Ready for Payment",
+"payment_history": "Payment History",
+"payment_policy": "Payment Policy",
+"support": "Support"
 
 
 

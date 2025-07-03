@@ -6,7 +6,6 @@ import 'package:easy_localization/easy_localization.dart';
 class AuthService {
   final ApiClient _api = ApiClient();
 
-  // حفظ بيانات المستخدم في SharedPreferences
   Future<void> saveUserToPrefs(Map<String, dynamic> user) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('fullName', user['fullName'] ?? '');
