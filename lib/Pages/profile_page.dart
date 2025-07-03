@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gamaiaapp/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gamaiaapp/services/auth_service.dart';
 import 'package:easy_localization/easy_localization.dart';
 
