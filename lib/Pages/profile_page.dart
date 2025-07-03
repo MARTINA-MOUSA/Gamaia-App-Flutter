@@ -93,7 +93,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         const SizedBox(height: 16),
                         buildInfoRow('full_name'.tr(), _nameController.text),
-                        buildInfoRow('national_id'.tr(), _idController.text),
+                        buildInfoRow('national id'.tr(), _idController.text),
                         buildInfoRow('phone'.tr(), _phoneController.text),
                       ],
                     ),
@@ -111,7 +111,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     icon: const Icon(Icons.edit),
                     label: Text('edit profile'.tr()),
                     onPressed: () {
-                      // Edit profile
+                      
                     },
                   ),
 

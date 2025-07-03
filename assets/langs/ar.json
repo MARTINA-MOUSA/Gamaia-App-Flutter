@@ -15,6 +15,7 @@
   "full_name": "الاسم بالكامل",
   "email": "البريد الإلكتروني",
   "phone": "رقم الهاتف",
+  "national id": "الرقم القومي",
   "reference_number": "الرقم المرجعي (إن وجد)",
   "save": "حفظ التعديلات",
   "my_associations": "الجمعيات الخاصة بي",
@@ -32,6 +33,16 @@
   "recharge wallet": "شحن الرصيد",
   "recharged_wallet_info": "تم شحن 300 ريال سعودي إلى المحفظة",
   "minutes_ago": "دقيقة",
-  "edit profile": "تعديل الملف الشخصي"
+  "edit profile": "تعديل الملف الشخصي",
+  "wallet": "محفظتي",
+  "wallet_balance": "رصيد المحفظة",
+  "enter_amount": "أدخل المبلغ",
+  "top_up_wallet": "شحن المحفظة",
+  "top_up_failed": "فشل في شحن المحفظة",
+  "enter_valid_amount": "من فضلك أدخل مبلغ صحيح",
+  "error_loading_balance": "فشل في تحميل رصيد المحفظة",
+  "top_up_success": "تم شحن المحفظة بنجاح",
+  "accept": "تأكيد",
+  "cancel": "إلغاء"
 
 }

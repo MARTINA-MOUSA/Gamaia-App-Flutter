@@ -1,9 +1,18 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:gamaiaapp/helper/api_client.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class AuthService {
-  final _api = ApiClient();
+  final ApiClient _api = ApiClient();
+
+  // حفظ بيانات المستخدم في SharedPreferences
+  Future<void> saveUserToPrefs(Map<String, dynamic> user) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('fullName', user['fullName'] ?? '');
+    await prefs.setString('role', user['role'] ?? '');
+    await prefs.setDouble('walletBalance', (user['walletBalance'] ?? 0).toDouble());
+  }
 
   Future<bool> login(String nationalId, String password) async {
     try {
@@ -15,19 +24,20 @@ class AuthService {
       if (response.statusCode == 200) {
         final body = jsonDecode(response.body);
         final token = body['token'];
+        final user = body['user'];
 
         await _api.saveToken(token);
-
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('nationalId', nationalId);
+        await saveUserToPrefs(user);
 
         return true;
       } else {
-        final error = jsonDecode(response.body)['message'] ?? 'فشل تسجيل الدخول';
+        final error = jsonDecode(response.body)['message'] ?? tr('login_failed');
         throw Exception(error);
       }
     } catch (e) {
-      throw Exception('حدث خطأ أثناء تسجيل الدخول');
+      throw Exception(tr('login_failed'));
     }
   }
 
@@ -55,11 +65,11 @@ class AuthService {
       if (response.statusCode == 200 || response.statusCode == 201) {
         return true;
       } else {
-        final error = jsonDecode(response.body)['message'] ?? 'فشل تسجيل المستخدم';
+        final error = jsonDecode(response.body)['message'] ?? tr('register_failed');
         throw Exception(error);
       }
     } catch (e) {
-      throw Exception('فشل تسجيل المستخدم');
+      throw Exception(tr('register_failed'));
     }
   }
 
@@ -71,19 +81,21 @@ class AuthService {
         final body = jsonDecode(response.body);
 
         if (body is List && body.isNotEmpty) {
+          await saveUserToPrefs(body[0]);
           return body[0];
         }
 
         if (body is Map<String, dynamic>) {
+          await saveUserToPrefs(body);
           return body;
         }
 
-        throw Exception('صيغة بيانات غير متوقعة');
+        throw Exception(tr('unexpected_data_format'));
       } else {
-        throw Exception('فشل تحميل بيانات الملف الشخصي');
+        throw Exception(tr('profile_load_failed'));
       }
     } catch (e) {
-      throw Exception('حدث خطأ أثناء تحميل الملف الشخصي');
+      throw Exception(tr('profile_load_failed'));
     }
   }
 
@@ -98,7 +110,23 @@ class AuthService {
         return null;
       }
     } catch (e) {
-      throw Exception("فشل تحميل صورة الملف الشخصي");
+      throw Exception(tr('profile_image_load_failed'));
+    }
+  }
+
+  Future<Map<String, dynamic>> topUpWallet(double amount, double currentBalance) async {
+    try {
+      final res = await _api.topUpWallet(amount, currentBalance);
+
+      if (res['success'] == true) {
+        final newBalance = res['newBalance']['val'];
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setDouble('walletBalance', newBalance);
+      }
+
+      return res;
+    } catch (e) {
+      throw Exception(tr('top_up_failed'));
     }
   }
 }

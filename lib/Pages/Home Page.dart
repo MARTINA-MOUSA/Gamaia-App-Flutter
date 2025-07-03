@@ -1,5 +1,3 @@
-
-import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -16,77 +14,89 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
 
-  List<Widget> get _screens => [
-     HomeTab(),
-        Center(child: Text(tr('my_groups'), style: const TextStyle(fontSize: 20))),
-        Center(child: Text(tr('subscription'), style: const TextStyle(fontSize: 20))),
-        Center(child: Text(tr('my_card'), style: const TextStyle(fontSize: 20))),
-        Center(child: Text(tr('payments'), style: const TextStyle(fontSize: 20))),
-      ];
-
   void _onItemTapped(int index) {
-    setState(() => _selectedIndex = index);
+    if (index == 3) {
+      Navigator.pushNamed(context, '/wallet');
+    } else {
+      setState(() => _selectedIndex = index);
+    }
+  }
+
+  Widget _buildCurrentScreen() {
+    switch (_selectedIndex) {
+      case 0:
+        return const HomeTab();
+      case 1:
+        return Center(child: Text(tr('my_groups'), style: const TextStyle(fontSize: 20)));
+      case 2:
+        return Center(child: Text(tr('subscription'), style: const TextStyle(fontSize: 20)));
+      case 4:
+        return Center(child: Text(tr('payments'), style: const TextStyle(fontSize: 20)));
+      default:
+        return const SizedBox();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: context.locale.languageCode == 'ar'
-          ? ui.TextDirection.rtl
-          : ui.TextDirection.ltr,
-      child: Scaffold(
-        backgroundColor: kBackgroundColor,
-        appBar: AppBar(
-          backgroundColor: kPrimaryColor,
-          elevation: 0,
-          leading: Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) =>  ProfilePage()),
-                );
+    return Scaffold(
+      backgroundColor: kBackgroundColor,
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        leading: Padding(
+          padding: const EdgeInsets.only(right: 12),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => ProfilePage()),
+              );
+            },
+            child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: PopupMenuButton(
+              icon: const Icon(Icons.language, color: Colors.white),
+              onSelected: (value) {
+                context.setLocale(Locale(value));
               },
-              child: const Icon(Icons.account_circle, color: Colors.white, size: 28),
+              itemBuilder: (context) => const [
+                PopupMenuItem(value: 'ar', child: Text('العربية')),
+                PopupMenuItem(value: 'en', child: Text('English')),
+              ],
             ),
           ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: PopupMenuButton(
-                icon: const Icon(Icons.language, color: Colors.white),
-                onSelected: (value) {
-                  context.setLocale(Locale(value));
-                },
-                itemBuilder: (context) => const [
-                  PopupMenuItem(value: 'ar', child: Text('العربية')),
-                  PopupMenuItem(value: 'en', child: Text('English')),
-                ],
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(left: 12, right: 4),
-              child: Icon(Icons.notifications, color: Colors.white, size: 28),
-            ),
-          ],
-        ),
-        body: _screens[_selectedIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: const Color(0xFFB8E8E2),
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.black54,
-          onTap: _onItemTapped,
-          type: BottomNavigationBarType.fixed,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: tr('home')),
-            BottomNavigationBarItem(icon: Icon(Icons.groups), label: tr('my_groups')),
-            BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: tr('subscription')),
-            BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: tr('my_card')),
-            BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: tr('payments')),
-          ],
-        ),
+          const Padding(
+            padding: EdgeInsets.only(left: 12, right: 4),
+            child: Icon(Icons.notifications, color: Colors.white, size: 28),
+          ),
+        ],
+      ),
+
+      // 🔑 Force rebuild on locale change
+      body: KeyedSubtree(
+        key: ValueKey(context.locale.languageCode),
+        child: _buildCurrentScreen(),
+      ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFFB8E8E2),
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.black54,
+        onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: tr('home')),
+          BottomNavigationBarItem(icon: Icon(Icons.groups), label: tr('my_groups')),
+          BottomNavigationBarItem(icon: Icon(Icons.subscriptions), label: tr('subscription')),
+          BottomNavigationBarItem(icon: Icon(Icons.credit_card), label: tr('my_card')),
+          BottomNavigationBarItem(icon: Icon(Icons.receipt_long), label: tr('payments')),
+        ],
       ),
     );
   }
@@ -118,20 +128,11 @@ class HomeTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        tr('summer_ready'),
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
+                      Text(tr('summer_ready'), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                       const SizedBox(height: 4),
-                      Text(
-                        tr('join_now'),
-                        style: const TextStyle(color: Colors.blue, fontSize: 14),
-                      ),
+                      Text(tr('join_now'), style: const TextStyle(color: Colors.blue, fontSize: 14)),
                       const SizedBox(height: 2),
-                      Text(
-                        tr('discount'),
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                      ),
+                      Text(tr('discount'), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
                     ],
                   ),
                 ),
@@ -155,15 +156,9 @@ class HomeTab extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        tr('invite_discount'),
-                        style: const TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                      Text(tr('invite_discount'), style: const TextStyle(fontWeight: FontWeight.bold)),
                       const SizedBox(height: 4),
-                      Text(
-                        tr('invite_text'),
-                        style: const TextStyle(fontSize: 13),
-                      ),
+                      Text(tr('invite_text'), style: const TextStyle(fontSize: 13)),
                       const SizedBox(height: 12),
                       Align(
                         alignment: Alignment.centerRight,

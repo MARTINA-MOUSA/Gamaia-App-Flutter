@@ -15,6 +15,7 @@
   "full_name": "Full Name",
   "email": "Email",
   "phone": "Phone Number",
+  "national id": "National ID",
   "reference_number": "Reference Number (optional)",
   "save": "Save Changes",
   "my_associations": "My Associations",
@@ -31,6 +32,17 @@
   "recharge_wallet": "Recharge Wallet",
   "recharged_wallet_info": "300 SAR recharged to wallet",
   "minutes_ago": "minutes ago",
-  "edit profile": "Edit Profile"
+  "edit profile": "Edit Profile",
+  "wallet": "Wallet",
+  "wallet_balance": "Wallet Balance",
+  "enter_amount": "Enter amount",
+  "top_up_wallet": "Top Up Wallet",
+  "top_up_failed": "Wallet top-up failed",
+  "enter_valid_amount": "Please enter a valid amount",
+  "error_loading_balance": "Failed to load wallet balance",
+  "accept": "Accept",
+  "cancel": "Cancel"
+
+
 
 }
