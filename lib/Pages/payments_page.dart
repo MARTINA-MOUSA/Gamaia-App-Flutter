@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:gamaiaapp/constants.dart';
 
 class PaymentsPage extends StatelessWidget {
   const PaymentsPage({super.key});
@@ -11,8 +12,8 @@ class PaymentsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(tr('payments')),
         centerTitle: true,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: kPrimaryColor,
+        foregroundColor: kBackgroundColor,
         elevation: 1,
       ),
       body: SingleChildScrollView(
