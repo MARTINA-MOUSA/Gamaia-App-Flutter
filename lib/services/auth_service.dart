@@ -128,4 +128,11 @@ class AuthService {
       throw Exception(tr('top_up_failed'));
     }
   }
+  Future<Map<String, dynamic>> fetchSuggestions(int amount) async {
+  try {
+    return await _api.getSuggestions(amount);
+  } catch (e) {
+    throw Exception(tr('no_suggestions'));
+  }
+}
 }

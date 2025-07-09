@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:gamaiaapp/Pages/JoinJamaiaPage.dart';
 import 'package:gamaiaapp/constants.dart';
+import 'dart:ui' as ui;
 
 class JoinJamaiaPage extends StatelessWidget {
   const JoinJamaiaPage({super.key});
@@ -26,9 +28,14 @@ class JoinJamaiaPage extends StatelessWidget {
               isArabic: isArabic,
               title: tr('join_regular'),
               description: tr('join_regular_desc'),
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const EnterAmountPage()),
+                );
+              },
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 16), 
             _buildJoinCard(
               isArabic: isArabic,
               title: tr('join_saving'),
@@ -65,35 +72,34 @@ class JoinJamaiaPage extends StatelessWidget {
           ],
         ),
         child: Row(
-          children: isArabic
-              ? [
-                  const Icon(Icons.double_arrow, color: Colors.green),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 6),
-                        Text(description, textAlign: TextAlign.right),
-                      ],
+          textDirection: isArabic ? ui.TextDirection.rtl : ui.TextDirection.ltr,
+          children: [
+            Expanded(
+              child: Column(
+                children: [
+                  Align(
+                    alignment:
+                        isArabic ? Alignment.centerRight : Alignment.centerLeft,
+                    child: Text(
+                      title,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      textAlign: isArabic ? TextAlign.right : TextAlign.left,
                     ),
                   ),
-                ]
-              : [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-                        const SizedBox(height: 6),
-                        Text(description),
-                      ],
-                    ),
+                  const SizedBox(height: 6),
+                  Text(
+                    description,
+                    textAlign: isArabic ? TextAlign.right : TextAlign.left,
                   ),
-                  const SizedBox(width: 12),
-                  const Icon(Icons.double_arrow, color: Colors.green),
                 ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            Transform.rotate(
+              angle: isArabic ? 3.14 : 0,
+              child: const Icon(Icons.double_arrow, color: Colors.green),
+            ),
+          ],
         ),
       ),
     );

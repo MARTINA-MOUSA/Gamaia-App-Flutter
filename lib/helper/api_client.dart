@@ -119,4 +119,15 @@ Future<Map<String, dynamic>> topUpWallet(double amount, double currentBalance) a
     throw Exception('حدث خطأ أثناء شحن المحفظة: $e');
   }
 }
+Future<Map<String, dynamic>> getSuggestions(int amount) async {
+  final res = await post('/api/payments/pay/suggest', {
+    'enter': amount,
+  });
+  final json = jsonDecode(res.body);
+  if (res.statusCode == 200 && json['success'] == true) {
+    return json;
+  } else {
+    throw Exception(json['message'] ?? 'فشل جلب الاقتراحات');
+  }
+}
 }

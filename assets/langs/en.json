@@ -54,8 +54,17 @@
   "join_regular": "Join Regular Jamaia",
   "join_regular_desc": "Choose your role with payment amounts up to 15,000 SAR per Jamaia",
   "join_saving": "Join Saving Program",
-  "join_saving_desc": "Save up to 1,000,000 SAR in installments and receive cashback of up to 20% at the end of your chosen period"
-
+  "join_saving_desc": "Save up to 1,000,000 SAR in installments and receive cashback of up to 20% at the end of your chosen period",
+  "join_jamaia": "Join a Jamaia",
+  "enter_amount": "What is the collection amount?",
+  "amount_hint": "Enter from 3,000 SAR to 15,000 SAR",
+  "next": "Next",
+  "sar": "SAR",
+  "months": "months",
+"total_payout": "Total payout",
+"month": "month",
+"no_suggestions": "No suggestions found for this amount",
+"suggestions_title": "These are the closest available options."
 
 
 }
